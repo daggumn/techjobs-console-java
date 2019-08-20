@@ -61,10 +61,21 @@ public class TechJobs {
                 System.out.println("\nSearch term: ");
                 String searchTerm = in.nextLine();
 
-                if (searchField.equals("all")) {
-                    printJobs(JobData.findByColumnAndValue(searchField, searchTerm));
+                System.out.println("\n");
+
+//                System.out.println("searchField: "+searchField);
+//                System.out.println("searchTerm: "+searchTerm);
+
+
+//                printJobs(JobData.searchByColumnsAndValue(searchField, searchTerm));
+
+                if (searchField.equals("all") && searchTerm.equals("")) {
+                    printJobs(JobData.findAll());
+//                    System.out.println("Search all fields not yet implemented.");
                 } else {
                     printJobs(JobData.findByColumnAndValue(searchField, searchTerm));
+//                    printJobs(JobData.searchByColumnsAndValue(searchField, searchTerm));
+
                 }
             }
         }
@@ -111,22 +122,21 @@ public class TechJobs {
 
     // Print a list of jobs
     private static void printJobs(ArrayList<HashMap<String, String>> someJobs) {
-
-        if (someJobs.size() < 1) {
-            System.out.println("No jobs found");
+        if (someJobs.size() == 0) {
+            System.out.println("No Results");
         } else {
             for (int i = 0; i < someJobs.size(); i++) {
-                for (HashMap<String, String> job : someJobs) {
-                    System.out.println("*****");
-                    for (Map.Entry<String, String> data : job.entrySet()) {
-                        System.out.println(data.getKey() + ":" + data.getValue());
-                    }
-                    System.out.println("*****\n");
+                System.out.println("*****");
+                for (Map.Entry<String, String> entry : someJobs.get(i).entrySet()) {
+                    String key = entry.getKey();
+                    Object value = entry.getValue();
+
+                    System.out.println(key + ": " + value);
                 }
+                System.out.println("*****\n");
             }
         }
+
+
     }
 }
-
-
-
